@@ -1,5 +1,7 @@
 WRain is a functional, set based esolang thats commutative over line composition. Meaning, line order does not matter. 
 
+Every line executes at once, commands are queued, and then it executes again. It will keep running until every command is deleted.
+
 All data is an unordered collection of elements. They can hold duplicate elements. The element types are numbers, collections, addresses, and strings. addresses are a custom object, and refer to a piece of a line. They can be casted to a string by simply outputting the text contained in that piece.
 
 There are two types of words, commands and functions. commands take in input, and alter the program, or the terminal in the case of print. functions take in input, and ouput something based on that.
