@@ -128,7 +128,7 @@ and a b={a,b}.
 pack and a b={{a,b}} 
 and pack and a b pack and b c={{a,b},{b,c}}
 unpack and pack and a b pack and b c={a,b,b,c}
-
+ 
 invert, ordinary
 a:T:invertible -> x:T:invertible
 currently only defined for ints. outputs negative a.
