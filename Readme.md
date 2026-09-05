@@ -16,20 +16,25 @@ So if x={a,b} and y={c,d}, and the underlying function of word is func(n,m), the
 This is the template I will use to denote functions.
 
 func name
+ㅤ
 a:type1, b:type2, c:type3..... -> x:type
+ㅤ
 g(a,b,c....)
 
 this means func name has an underlying function g, which takes in something of type1, type2, type3.... and ouputs something of of type x.
-
-
-Special functions have no underlying function, and simply deal with the collection in its entirety.
+ㅤ
+ㅤ
+Special functions have no ㅤ
+underlying function, and simply deal with the 
+ㅤcollection 
+in its entirety.
 
 
 There are also functions that don't fit into either category. I will denote them with weird, and explain them on a case by case basis
 
 These are the commands. You can only have one command per line.
 
-
+ㅤ
 
 print, ordinary, command
 
@@ -37,7 +42,7 @@ to pring:string castable-> no output
 
 Queues the elements of to print to be printed. Causes an unresolvable collision if multiple things are queued, whose printing order would affect the ouput. So print({"ab","ab"}) will work but print({"ab","cd"}) will not.
 
-
+ㅤ
 
 put, ordinary, command
 
@@ -45,7 +50,7 @@ where to put:address, to put:string castable->no output
 
 Queues to put to be inserted at the start of where to put. Causes an unresolvable collision under the same conditions as print
 
-
+ㅤ
 
 delete, ordinary, command
 
@@ -53,7 +58,7 @@ to delete:address -> no output
 
 Queues the piece of the line that to delete is a reference to to to be deleted. 
 
-
+ㅤ
 
 new, ordinary, command
 
@@ -61,16 +66,17 @@ code:string castable -> no output
 
 Queues a new line to be created with code as its code.
 
-
+ㅤ
 
 add, ordinary
 
 a:T, b:T -> x:T
 
 a+b
+
 A and B can be anything with defined addition. Addresses do not have defined addition, but can be casted to strings, which do. It can also be different types if they can be casted into each other in which case the program will do that, but relying on this is not good.
 
-
+ㅤ
 
 here, weird
 
@@ -78,7 +84,7 @@ no input -> x:address
 
 Takes in no input, outputs an address referencing the words starts to end
 
-
+ㅤ
 
 slice, ordinary
 
@@ -89,7 +95,7 @@ slice makes a new address with a start of a.start+start_1-scale, and an end of a
 If a="this |is a| line", slice a 4 -1 3="this i|s a l|ine" 
 a can be a string as well.
 
-
+ㅤ
 
 parse, ordinary
 
@@ -97,7 +103,7 @@ a:string castable -> x:any
 
 Executes a as code. parse can only take in collections with one element.
 
-
+ㅤ
 
 without, special
 
@@ -105,7 +111,7 @@ to remove:Collection, base:Collection -> x:Collection
 
 outputs base with all elements it shares with to remove removed.
 
-
+ㅤ
 
 and, special
 
@@ -113,7 +119,7 @@ a:Collection, b:Collection -> x:Collection
 
 outputs a and b combined into a single collection
 
-
+ㅤ
 
 flatten, special
 
@@ -121,7 +127,7 @@ a:Collection -> x:Collection
 
 outputs a with all duplicate elements removed
 
-
+ㅤ
 
 word, ordinary
 
@@ -129,7 +135,7 @@ a:address -> x:address
 
 outputs an address x which is a with its start extended to the start of the word if it is inside of a word, and with its end extended to the end of the word if it is inside of a word.
 
-
+ㅤ
 
 amount, special
 
@@ -138,7 +144,7 @@ a:Collection-> {x:int}
 outputs a collection with the amount of elements in a as its only element.
 
 
-
+ㅤ
 
 size, ordinary
 
@@ -146,7 +152,7 @@ a:size defined-> x:int
 
 outputs the size of a. for strings, the amount of characters. for ints, the amount of digits. for addresses, end-start. for collections, the amount of elements
 
-
+ㅤ
 
 start, ordinary
 
@@ -154,7 +160,7 @@ a:address -> x:int
 
 start of a
 
-
+ㅤ
 
 end, ordinary
 
@@ -162,7 +168,7 @@ a:address -> x:int
 
 end of a
 
-
+ㅤ
 
 int, ordinary
 
@@ -170,7 +176,7 @@ a:int castable -> a:int
 
 casts a to an int
 
-
+ㅤ
 
 string, ordinary
 
@@ -178,7 +184,7 @@ a:string castable -> a:string
 
 casts a to a string
 
-
+ㅤ
 
 line, ordinary
 
@@ -186,7 +192,7 @@ a:adress -> x:address
 
 outputs an address referencing the entire line which a is in
 
-
+ㅤ
 
 match, weird
 
@@ -200,7 +206,7 @@ put slice find "duplicate" 12 -1 2 word slice find "duplicate" 12 -1 2 is close 
 match current slice find "duplicate" 12 -1 2 put current word current.
 
 
-
+ㅤ
 
 pack, special
 
@@ -208,7 +214,7 @@ a:Collection -> {a:Collection}
 
 outputs a collection with a as its only element
 
-
+ㅤ
 
 unpack, ordinary/special/weird
 
