@@ -1,3 +1,5 @@
+Currently the only way to run this language is to just download main.py and run it in a python interpreter. set the variable thecode to the code you want to run
+
 WRain is a functional, set based esolang thats commutative over line composition. Meaning, line order does not matter. 
 
 Every line executes at once, commands are queued, and then it executes again. It will keep running until every command is deleted.
