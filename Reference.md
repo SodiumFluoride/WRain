@@ -44,7 +44,35 @@ to pring:string castable-> no output
 
 Queues the elements of to print to be printed. Causes an unresolvable collision if multiple things are queued, whose printing order would affect the ouput. So print({"ab","ab"}) will work but print({"ab","cd"}) will not.
 
-ㅤ
+ㅤ### get, weird/command
+no input -> x:string
+Outputs the first element in sys.argv, and then removes it. Multiple get calls in a single iteration will all output the same thing, and only remove one element. So if sys.argv=[hello,world],
+
+`print get`
+
+`new get`
+
+would be
+
+`print get`
+
+`new get`
+
+`hello`
+
+with output "hello" after the first iteration, and
+
+`print get`
+
+`new get`
+
+`hello`
+
+`world`
+
+with output world after the second iteration.
+
+
 
 ### put, ordinary, command
 
