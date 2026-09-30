@@ -1,6 +1,20 @@
 """some code examples."""
 
 '''
+output 1 if x and y equal
+amount and x y
+
+output 1 if x isnt negative
+amount and "-" slice str x 0 1 0
+
+
+
+output a string x multiplied by an integer y. matching the inputs allows this code to work without adjusting the slice parameters for string/number  amount.
+
+match empty "" match A str_to_mult match N amount_to_mult match r0 "empty" match r1 slice line here add end here 7 -1 0 add A match "N" add N -1 parse parse add "r" string amount without 0 N
+'''
+
+'''
 printing (for conways game of life. this would all be one line, i split it up to make it easier to edit/read, same with all the other code snippets that are split like this.)
 
 print match "r1" □ 
@@ -166,41 +180,6 @@ delete word slice line find add "ma" "rk" 12 13 0
 match m or or "a" "b" "c" match n add "A" m print add n m
 '''
 
-'''
-output 1 if x and y equal
-amount and x y
-
-output 1 if x isnt negative
-amount and "-" slice str x 0 1 0
-
-output x if y isnt 0, else 0
-match 
-
-send set of exclusively non zero to one
- amount without 0 x 
-
-output a string x multiplied by an integer y. matching the inputs allows this code to work without adjusting the 
-slice parameters for string/number  amount.
-
-match empty "" match A str_to_mult match N amount_to_mult match r0 "empty" match r1 slice line here add end here 7 -1 0 add A match "N" add N -1 parse parse add "r" string amount without 0 N
-
-if F and G are sentences that use the keyword z, set z to G(z) and add F(z) to a set, until z is equal to N, then
-output the set.
-match empty "" match N input match r0 "empty" match r1 slice line here add end here 7 -1 0 add A match "N" add N -1 parse parse add "r" string amount without 0 N
-
-without a, output b.
-
--x
-
-
-tell if x is less than y
-
-multiply two integers, x and y. The part at the start of matching y and here allows this to be used for x and y with an arbitrary
-amount of digits.
-match a x match N a match b y match s here add match N add N-1
-
-
-'''
 
 '''
 new
