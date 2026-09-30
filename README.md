@@ -40,7 +40,7 @@ These are the commands. You can only have one command per line.
 
 ### print, ordinary, command
 
-to pring:string castable-> no output
+to print:string castable-> no output
 
 Queues the elements of to print to be printed. Causes an unresolvable collision if multiple things are queued, whose printing order would affect the ouput. So print({"ab","ab"}) will work but print({"ab","cd"}) will not.
 
@@ -80,6 +80,22 @@ where to put:address, to put:string castable->no output
 
 Queues to put to be inserted at the start of where to put. Causes an unresolvable collision under the same conditions as print
 
+`put find spot add test " "`
+
+`print spot`
+
+`spot spot`
+
+becomes
+
+`put find test spot add test " "`
+
+`print test spot`
+
+`test spot test spot`
+
+find add "sp" "ot" instead of just find spot will prevent test from being put after find.
+
 ㅤ
 
 ### delete, ordinary, command
@@ -106,13 +122,6 @@ a+b
 
 A and B can be anything with defined addition. Addresses do not have defined addition, but can be casted to strings, which do. It can also be different types if they can be casted into each other in which case the program will do that, but relying on this is not good.
 
-ㅤ
-
-### here, weird
-
-no input -> x:address
-
-Takes in no input, outputs an address referencing the words starts to end
 
 ㅤ
 
@@ -126,12 +135,25 @@ If a="this |is a| line", slice a 4 -1 3="this i|s a l|ine"
 a can be a string as well.
 
 ㅤ
+### here, weird
+
+no input -> x:address
+
+Takes in no input, outputs an address referencing the words starts to end
+
+`new slice here -3 3 0`
+
+becomes
+
+`new slice here -3 3 0`
+
+`ce here -3`
 
 ### parse, ordinary
 
 a:string castable -> x:any
 
-Executes a as code. parse can only take in collections with one element.
+Executes a as code, and returns its output. Parse works by adding its input to the list of code to parse, so the code outside of parse can interact with the code inside of parse, and vice verse. So `parse "add a b add c" d` will output ab, since add only takes in two inputs and nothing before parse is requesting any more input, but `and parse "add a b add c" d` will output {ab,cd}. In order to preserve unorderedness of collections, Parse can only take in collections with one element, and unexecuted code from a parse will be cleared when a new iteration of match starts. This may change if I find a more natural way to resolve it.
 
 ㅤ
 
