@@ -1,4 +1,4 @@
-Currently the only way to run this language is to just download main.py and run it in a python interpreter. set the variable thecode to the code you want to run
+# Wrain language reference
 
 WRain is a functional, set based esolang thats commutative over line composition. Meaning, line order does not matter. 
 
@@ -38,7 +38,7 @@ These are the commands. You can only have one command per line.
 
 ㅤ
 
-#print, ordinary, command
+### print, ordinary, command
 
 to pring:string castable-> no output
 
@@ -46,7 +46,7 @@ Queues the elements of to print to be printed. Causes an unresolvable collision 
 
 ㅤ
 
-#put, ordinary, command
+### put, ordinary, command
 
 where to put:address, to put:string castable->no output
 
@@ -54,7 +54,7 @@ Queues to put to be inserted at the start of where to put. Causes an unresolvabl
 
 ㅤ
 
-#delete, ordinary, command
+### delete, ordinary, command
 
 to delete:address -> no output
 
@@ -62,7 +62,7 @@ Queues the piece of the line that to delete is a reference to to to be deleted.
 
 ㅤ
 
-#new, ordinary, command
+### new, ordinary, command
 
 code:string castable -> no output
 
@@ -70,7 +70,7 @@ Queues a new line to be created with code as its code.
 
 ㅤ
 
-#add, ordinary
+### add, ordinary
 
 a:T, b:T -> x:T
 
@@ -80,7 +80,7 @@ A and B can be anything with defined addition. Addresses do not have defined add
 
 ㅤ
 
-#here, weird
+### here, weird
 
 no input -> x:address
 
@@ -88,7 +88,7 @@ Takes in no input, outputs an address referencing the words starts to end
 
 ㅤ
 
-#slice, ordinary
+### slice, ordinary
 
 a:address, start_1:int, end_1:int, scale:int -> x:address
 
@@ -99,7 +99,7 @@ a can be a string as well.
 
 ㅤ
 
-#parse, ordinary
+### parse, ordinary
 
 a:string castable -> x:any
 
@@ -107,7 +107,7 @@ Executes a as code. parse can only take in collections with one element.
 
 ㅤ
 
-#without, special
+### without, special
 
 to remove:Collection, base:Collection -> x:Collection
 
@@ -115,7 +115,7 @@ outputs base with all elements it shares with to remove removed.
 
 ㅤ
 
-#and, special
+### and, special
 
 a:Collection, b:Collection -> x:Collection
 
@@ -123,7 +123,7 @@ outputs a and b combined into a single collection
 
 ㅤ
 
-#flatten, special
+### flatten, special
 
 a:Collection -> x:Collection
 
@@ -131,7 +131,7 @@ outputs a with all duplicate elements removed
 
 ㅤ
 
-#word, ordinary
+### word, ordinary
 
 a:address -> x:address
 
@@ -139,7 +139,7 @@ outputs an address x which is a with its start extended to the start of the word
 
 ㅤ
 
-#amount, special
+### amount, special
 
 a:Collection-> {x:int}
 
@@ -148,7 +148,7 @@ outputs a collection with the amount of elements in a as its only element.
 
 ㅤ
 
-#size, ordinary
+### size, ordinary
 
 a:size defined-> x:int
 
@@ -156,7 +156,7 @@ outputs the size of a. for strings, the amount of characters. for ints, the amou
 
 ㅤ
 
-#start, ordinary
+### start, ordinary
 
 a:address -> x:int
 
@@ -164,7 +164,7 @@ start of a
 
 ㅤ
 
-#end, ordinary
+### end, ordinary
 
 a:address -> x:int
 
@@ -172,7 +172,7 @@ end of a
 
 ㅤ
 
-#int, ordinary
+### int, ordinary
 
 a:int castable -> a:int
 
@@ -180,7 +180,7 @@ casts a to an int
 
 ㅤ
 
-#string, ordinary
+### string, ordinary
 
 a:string castable -> a:string
 
@@ -188,7 +188,7 @@ casts a to a string
 
 ㅤ
 
-#line, ordinary
+### line, ordinary
 
 a:adress -> x:address
 
@@ -196,7 +196,7 @@ outputs an address referencing the entire line which a is in
 
 ㅤ
 
-##match, weird
+### match, weird
 
 a:string castable, b:any, c:weird -> x:any
 
@@ -210,7 +210,7 @@ match current slice find "duplicate" 12 -1 2 put current word current.
 
 ㅤ
 
-#pack, special
+### pack, special
 
 a:Collection -> {a:Collection}
 
@@ -218,7 +218,7 @@ outputs a collection with a as its only element
 
 ㅤ
 
-#unpack, ordinary/special/weird
+### unpack, ordinary/special/weird
 
 {a:collection, b:collection, c:collection...} -> x:Collection
 takes in a collection of collections packed with pack, and outputs a collection of all their elements. 
@@ -227,10 +227,10 @@ pack and a b={{a,b}}
 and pack and a b pack and b c={{a,b},{b,c}}
 unpack and pack and a b pack and b c={a,b,b,c}
 
-#neg, ordinary
+### neg, ordinary
 a:int -> x:int
 outputs -a
 
-#invert, ordinary
+### invert, ordinary
 
 a:T:invertible -> x:T:invertible
