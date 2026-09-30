@@ -264,8 +264,11 @@ unpack and pack and a b pack and b c={a,b,b,c}
 
 ### neg, ordinary
 a:int -> x:int
+
 outputs -a
 
 ### invert, ordinary
 
 a:T:invertible -> x:T:invertible
+
+Unimplemented. Will allow for inverse elements and code. Will make this language into an abelian group (cool math thing, look up group theory).
