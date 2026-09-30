@@ -216,16 +216,23 @@ a:Collection -> {a:Collection}
 
 outputs a collection with a as its only element
 
+and a b={a,b}. 
+
+pack and a b={{a,b}} 
+
+and pack and a b pack and b c={{a,b},{b,c}}
 ㅤ
 
 ### unpack, ordinary/special/weird
 
 {a:collection, b:collection, c:collection...} -> x:Collection
+
 takes in a collection of collections packed with pack, and outputs a collection of all their elements. 
-and a b={a,b}. 
-pack and a b={{a,b}} 
-and pack and a b pack and b c={{a,b},{b,c}}
+unpack {{x1,x2,x3,x4...},{y1,y2,3,y4....}}={x1,x2,x3...,y1,y2,3....}
+unpack pack and a b={a,b}. 
+
 unpack and pack and a b pack and b c={a,b,b,c}
+
 
 ### neg, ordinary
 a:int -> x:int
