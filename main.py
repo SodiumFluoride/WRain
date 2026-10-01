@@ -1,3 +1,4 @@
+import sys
 import typing
 lines=[]
 
@@ -96,6 +97,9 @@ class Line:
     
 class Address:
 
+    def __repr__(self):
+        return str(self)
+
     def __init__(self,line,a,b):
         if b<0:
             b=len(line.code)+b+1
@@ -139,6 +143,7 @@ types = {
 
 
 class Scanner():
+    blowthisjoint=False
     forceparse=False
     breakk=False
     to_add=[]
@@ -163,6 +168,7 @@ class Scanner():
 
         for line in lines:
             skip=False
+            print()
             self.cancommand=True
              
             self.index=0
@@ -189,14 +195,15 @@ class Scanner():
 
                     break
                 self.index+=1'''
+                self.blowthisjoint=False
         for line in lines:
             line.apply()
         for filler in self.to_add:
-            a=Line(filler)
+            a=Line(str(filler))
             lines.append(a)
         self.to_add=[]
-        if self.iterations>0:
-            self.iterations-=1
+        if self.running:
+
             self.Go()
         else:
             print("halted!")
@@ -213,8 +220,10 @@ class Scanner():
          
          
         second=self.parse()
-         
-         
+
+        if self.blowthisjoint:
+            return 
+        
         lines
         for adr in first:
             for fillerer in second:
@@ -258,6 +267,10 @@ class Scanner():
         if not(self.cancommand):
             raise Exception("Can't have multiple commands per line!")
         z=self.parse()
+
+        if self.blowthisjoint:
+            return 
+
         for Z in z:
              
              
@@ -272,8 +285,11 @@ class Scanner():
         self.cancommand=False
 #       self.index+=1
         a=self.parse()
+        if self.blowthisjoint:
+            return 
         self.to_add+=a
         print(a)
+        print("AAAAAAAAAAAAAAAAAAAa")
         return []
 
     def wprint(self):
@@ -284,7 +300,8 @@ class Scanner():
          
 #        self.index+=1
         final=self.parse()
-
+        if self.blowthisjoint:
+            return 
         print()
         print()
         print()
@@ -299,9 +316,18 @@ class Scanner():
     layer=0
     waslayer=0
     toprint=""
+    sofar=""
+
+    shouldskip=False
 
     def parse(self):
+        if self.blowthisjoint:
+            return []
+        if self.shouldskip:
+            return []
+
         try:
+            temps=self.sofar
             layer=self.layer
             out=[]
             s=self
@@ -320,7 +346,11 @@ class Scanner():
             else:
                 word=s.line.words[s.index]
                 s.index+=1
+            
             self.word=word
+            self.sofar+=" "+self.word
+            if self.breakk:
+                pass
             print(word,end=" ")
             if self.breakk:
                     pass
@@ -330,7 +360,7 @@ class Scanner():
                 self.layer=layer+1
                 out=self.Words[self.word]()
                 if self.breakk:
-                    pass
+                    pass 
                 if self.forceparse:
                     return []
                 return out
@@ -345,18 +375,21 @@ class Scanner():
                 if self.breakk:
                     pass
                 return [self.matches[word]]
+            self.sofar=temps
             return [str(word)]
         except Exception as gack:
             if self.forceparse:
                 return []
             else:
                 raise gack
+        
     def wunbreak(self):
         self.breakk=False
         return self.parse()
     def Find(self,s,exclude=False):
         full=[]
-         
+        if self.blowthisjoint:
+            return []
         for real in s:
             for l in lines:
                 x=0
@@ -375,19 +408,23 @@ class Scanner():
     wordsize={
 
     }
+
     def wmatch(self):
         self.sbranch(3)
         a=self.parse()
         b=self.parse()
-
+        if self.blowthisjoint:
+            return 
         if b==[]:
+            self.blowthisjoint=True
             t=self.forceparse
             self.forceparse=True
             for fillerer in a:
                 self.matches[fillerer]=None
-            self.parse()
+
             self.forceparse=t
-            return
+
+            return []
 
         c=self.index
         final=[]
@@ -397,16 +434,23 @@ class Scanner():
             for fillerer in a:
                 self.matches[fillerer]=filler
             self.cancommand=temp
+            print()
+            print("its now")
+            print(self.matches)
+            print()
 
             self.index=c
+  
             final+=self.parse()
-        for A in a:
-            goback=self.matches.get(A)
-            if goback==None:
-                self.matches.pop(A)
-            else:
-                self.matches[A]=goback
+
+            for A in a:
+                goback=self.matches.get(A)
+                if goback==None:
+                    self.matches.pop(A)
+                else:
+                    self.matches[A]=goback
         pass
+        self.parsebuffer=[]
         return final
 
     def wslice(self):
@@ -415,7 +459,8 @@ class Scanner():
         Start=self.parse()
         End=self.parse()
         Scale=self.parse()
-
+        if self.blowthisjoint:
+            return 
         asdf=0
         for adr in Adr:
             for start in Start:
@@ -438,6 +483,8 @@ class Scanner():
 
     def wparse(self):
         toadd=self.parse()
+        if self.blowthisjoint:
+            return 
         if len(toadd)>1:
             raise Exception("Can't parse sets because im a lazy bum that sucks at programming")
         if toadd==[]:
@@ -456,6 +503,8 @@ class Scanner():
         self.sbranch(2)
         a=self.parse()
         b=self.parse()
+        if self.blowthisjoint:
+            return 
         c=[x for x in b if not(x in a)]
         pass
         return c
@@ -463,14 +512,17 @@ class Scanner():
     def wword(self):
         final=[]
         adr=self.parse()
-
+        if self.blowthisjoint:
+            return 
         for x in adr:
+            chill=False
             needs=True
             neede=True
             search=0
             prevstart=0
             prevend=0
             while search<len(x.line.blocks):
+
                 teststart=x.line.blocks[search][0]
                 testend=x.line.blocks[search][1]
                 if teststart>x.start and needs:
@@ -482,12 +534,14 @@ class Scanner():
 
                 if not(needs) and not(neede):
                     a=x.line.slice(fstart,fend)
-                     
+                    chill=True
                     final.append(a)
                     break
 
                 prevstart=teststart
                 search+=1
+            if chill:
+                break
             if needs:
                 fstart=teststart
             if neede:
@@ -521,6 +575,8 @@ class Scanner():
         self.sbranch(2)
         A=self.parse()
         B=self.parse()
+        if self.blowthisjoint:
+            return 
         final=[]
         for a in A:
             for b in B:
@@ -536,11 +592,19 @@ class Scanner():
   
     def wand(self):
         self.sbranch(2)
-        return self.parse()+self.parse()
+        a=self.parse()
+        
+        b=self.parse()
+        
+        if self.blowthisjoint:
+            return []
+        return a+b
 
     def wflatten(self):
         #lambda:list(set(self.parse()))
         a=self.parse()
+        if self.blowthisjoint:
+            return []
         b=set(a)
         c=list(b)
         return c
@@ -594,14 +658,14 @@ scanner=Scanner()
 
 
 inputamt={"add":2,"match":3,"slice":4,"without":2,"and":2,"or":2}
-wordss=['add', 'here', 'this', 'find_in', 'put', 'delete', 'new', 'print', 'find', 'slice', 'slice_word', 'parse', 'without', 'and', 'flatten', 'word', 'amount', ' amount', 'start', 'end', 'int', 'string', 'match', 'line', 'skip', 'pack', 'unpack', 'invert']
+wordss=['add', 'break' 'here', 'this', 'find_in', 'put', 'delete', 'new', 'print', 'find', 'slice', 'slice_word', 'parse', 'without', 'and', 'flatten', 'word', 'amount', ' amount', 'start', 'end', 'int', 'string', 'match', 'line', 'skip', 'pack', 'unpack', 'invert']
 branchindex=-1
 def branchprint(theline,layer):
 
     global branchindex
     branchindex+=1
     if branchindex>=len(theline.words):
-        return
+        return []
     a=theline.words[branchindex]
     if a=='':
         return branchprint(theline,layer)
@@ -630,17 +694,21 @@ thecode='''
 
 finalcell 0 0
 
-new match enum find add "final" "cell" match "eX" word slice enum 10 10 0 match "eY" slice eX 2 0 2 match "eX" int eX and add add add add "live" "cell " eX " " eY match "y" and and -1 0 1 match " " and and -1 0 1 add add add add "around" "cell " add eY y " " add eX x 
+new match "enum" find add "final" "cell" match "eX" int word slice enum 10 10 0 match "eY" word slice line enum -1 -1 0 and add add add add "live" "cell " eX " " eY match "y" and and -1 0 1 match "x" and and -1 0 1 add "around" add "cell " add string add eY y add " " string add eX x gabbagool
 
-
-break new match total pack line find add "around" "cell" match Ltotal pack string slice line find add "live" "cell" 10 -1 0 match "l1" "4" match "l0" "and 3 4" match "space" " " match "s0" "add final add cell add space coords" match "s1" "without break 0 0" match enum flatten string line unpack total break match coords string slice enum 12 -1 0 match sum add amount unpack total invert amount without enum string unpack total break parse parse add "s" string amount without parse parse add "l" string amount without unpack Ltotal coords sum
-
-
-
-
+new match total pack line find add "around" "cell" match Ltotal pack string slice line find add "live" "cell" 10 -1 0 match "l1" "4" match "l0" "and 3 4" match "space" " " match "s0" "add final add cell add space coords" break match "s1" "without 0 0" match enum flatten string line unpack total break match coords string slice enum 12 -1 0 match sum add amount unpack total invert amount without enum string unpack total break parse parse add "s" string amount without parse parse add "l" string amount without break unpack Ltotal coords sum
 '''
 
+
+
 """
+new match "enum" find add "final" "cell" match "eX" int word slice enum 10 10 0 match "eY" word slice line enum -1 -1 0 and add add add add "live" "cell " eX " " eY match "y" and and -1 0 1 match "x" and and -1 0 1 add "around" add "cell " add string add eY y add " " string add eX x gabbagool
+
+new match "enum" find add "final" "cell" match "eX" int word slice enum 10 10 0 match "eY" word slice line enum -1 -1 0 and add add add add "live" "cell " eX " " eY match "y" and and -1 0 1 match "x" and and -1 0 1 add "around" add "cell " add string add eY y add " " string add eX x gabbagool
+
+break new match total pack line find add "around" "cell" match Ltotal pack string slice line find add "live" "cell" 10 -1 0 match "l1" "4" match "l0" "and 3 4" match "space" " " match "s0" "add final add cell add space coords" match "s1" "without break 0 0" match enum flatten string line unpack total break match coords string slice enum 12 -1 0 match sum add amount unpack total invert amount without enum string unpack total break parse parse add "s" string amount without parse parse add "l" string amount without break unpack Ltotal coords sum
+
+
 new 
 match total pack find add "around" "cell"
 match Ltotal pack find add "live" "cell"
@@ -661,7 +729,7 @@ lines=thecode.split("\n")
 lines=[Line(x) for x in lines]
 print("matcha")
 
-Branchprint('parse parse add "s" string amount without unpack parse parse add "l" string amount without string unpack Ltotal coords sum')
+Branchprint('new match "enum" "ack" and "livecell" match "eX" and 0 1 match "eY" and 0 1 add eX eY')
 a=Line("gaksgdjasd")
 
 
@@ -670,3 +738,4 @@ print("gabbagool!")
 print()
 for f in lines:
     print(f)
+

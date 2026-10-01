@@ -4,14 +4,19 @@
 output 1 if x and y equal
 amount and x y
 
+
 output 1 if x isnt negative
 amount and "-" slice str x 0 1 0
 
 
-
 output a string x multiplied by an integer y. matching the inputs allows this code to work without adjusting the slice parameters for string/number  amount.
-
 match empty "" match A str_to_mult match N amount_to_mult match r0 "empty" match r1 slice line here add end here 7 -1 0 add A match "N" add N -1 parse parse add "r" string amount without 0 N
+
+
+truth machine
+new match r1 "print 1" match r0 and "print 0" "delete line find i" parse add r get
+delete line find i 
+
 '''
 
 '''
