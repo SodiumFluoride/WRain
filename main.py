@@ -523,6 +523,7 @@ class Scanner():
                     self.matches.pop(A)
                 else:
                     self.matches[A]=goback
+            self.parsebuffer=[]
         pass
         self.parsebuffer=[]
         return final
