@@ -89,6 +89,7 @@ match x add -1 slbound parse s1
 
 
 '''
+Conways game of life (you might need to scroll to the right a tad bit)
 
 finalcell 0 0 finalcell 0 1 finalcell 0 2 finalcell 0 3 finalcell 0 4
 
