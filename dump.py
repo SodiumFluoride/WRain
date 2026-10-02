@@ -150,7 +150,7 @@ class Scanner():
 
     def Go(self):
         running=False
-        for line in lines:
+        for line in self.lines:
             self.index=0
             self.line=line
             while self.index<len(line.words):
@@ -164,7 +164,7 @@ class Scanner():
                     second=self.parse()
                      second)
                      "the chud")
-                    lines
+                    self.lines
                     for adr in first:
                          adr)
                          adr.line)
@@ -199,7 +199,7 @@ class Scanner():
                     self.index+=1
                      *map(str,self.parse()))
                 self.index+=1
-        for line in lines:
+        for line in self.lines:
             line.apply()
         if self.iterations>0:
             self.iterations-=1
@@ -264,7 +264,7 @@ class Scanner():
         full=[]
          s)
         for real in s:
-            for l in lines:
+            for l in self.lines:
                 x=0
                 c=l.code
                 a=c.find(real,x)
@@ -462,9 +462,9 @@ put slice find add "ma" "rk" 5 0 0
 delete slice find add "ma" "rk" 13 -1 8
 '''
 lines=thecode.split("\n")
-lines=[Line(x+" ") for x in lines]
+lines=[Line(x+" ") for x in self.lines]
 
- lines)
+ self.lines)
 #scanner.Go()
 def matchh():
     x=0

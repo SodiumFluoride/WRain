@@ -13,9 +13,15 @@ output a string x multiplied by an integer y. matching the inputs allows this co
 match empty "" match A str_to_mult match N amount_to_mult match r0 "empty" match r1 slice line here add end here 7 -1 0 add A match "N" add N -1 parse parse add "r" string amount without 0 N
 
 
-truth machine
+truth machine. if the input is 0, output 0 and then halt. if the input is 1, keep outputting 1 forever
 new match r1 "print 1" match r0 and "print 0" "delete line find i" parse add r get
 delete line find i 
+
+print the numbers 0 through ten
+current print 0
+delete word slice line find add "cur" "rent" -1 -1 0
+match "num" word slice line find add "cur" "rent" -1 -1 0 put num add num 1
+match r0 "i" delete parse find add "r" amount without word slice line find add "cur" "rent" 10
 
 '''
 

@@ -28,14 +28,28 @@ class Line:
         return hash(id(self))
 
     def construct(self):
+        '''a=self.code.split('"')
+        inn=False
+        missing=0
+        for b in range(a.size()):
+            if inn:
+                missing+2
+                inn=False
+
+            else:
+                inn=True
+        '''
         if self.code=="":
-            lines.remove(self)
+            scanner.lines.remove(self)
             return ""
+        if self.code[0]!=" ":
+            self.code=" "+self.code
         self.blocks=[]
         self.words=[]
         first=0
         second=0
         self.code=self.code
+        
         while first<len(self.code):
             string=False
             while second<len(self.code):
@@ -143,6 +157,15 @@ types = {
 
 
 class Scanner():
+    nextreturn=False
+    showword=False
+    oneline=False
+    debugging=False
+    displayreturn=False
+    iterating=False
+    stepping=False
+    inputted=False
+    lines=[]
     blowthisjoint=False
     forceparse=False
     breakk=False
@@ -158,15 +181,57 @@ class Scanner():
     matches={}
     needmatch=True
     skip=False
+    running=False
+    def compile(self,list):
+        for filler in list:
+            a=Line(filler)
+            a.scanner=self
+            self.lines.append(a)
 
     def sbranch(self,n):
         pass
 
-    def Go(self):
-        running=False
-         
+    def debuginput(self):
+        while(True):
+            a=input()
+            if a=="line":
+                self.oneline=True
+                return
+            if a=="step":
+                self.stepping=True
+                return
+            if a=="iterate":
+                self.iterating=True
+                return
+            if a=="display":
+                self.displayreturn=True
+            if a=="finish":
+                return
+            if a=="words":
+                self.showword=True
+            if a=="return":
+                self.nextreturn=True
+                return
+            if a=="exit":
+                self.blowthisjoint=True
+                raise "smell ya later!"
+                return
 
-        for line in lines:
+    def supergo(self):
+        self.running=True
+        while(self.running):
+
+            self.Go()
+            if self.iterating:
+                self.debuginput()
+
+    def Go(self):
+        self.running=False
+        if self.inputted:
+            sys.argv.pop(0)
+        self.inputted=False
+
+        for line in self.lines:
             skip=False
             print()
             self.cancommand=True
@@ -196,18 +261,15 @@ class Scanner():
                     break
                 self.index+=1'''
                 self.blowthisjoint=False
-        for line in lines:
+        for line in self.lines:
             line.apply()
         for filler in self.to_add:
             a=Line(str(filler))
-            lines.append(a)
+            self.lines.append(a)
         self.to_add=[]
-        if self.running:
+        if self.oneline:
+            self.debuginput()
 
-            self.Go()
-        else:
-            print("halted!")
-             
 
     def wput(self):
          
@@ -224,7 +286,7 @@ class Scanner():
         if self.blowthisjoint:
             return 
         
-        lines
+        self.lines
         for adr in first:
             for fillerer in second:
                 fillerer=str(fillerer)
@@ -349,9 +411,11 @@ class Scanner():
             
             self.word=word
             self.sofar+=" "+self.word
-            if self.breakk:
-                pass
-            print(word,end=" ")
+            if self.showword:
+                print(word,end=" ")
+            if self.stepping:
+                self.debuginput()
+
             if self.breakk:
                     pass
             if word=='':
@@ -363,6 +427,14 @@ class Scanner():
                     pass 
                 if self.forceparse:
                     return []
+
+                if self.displayreturn:
+                    print(word+" returned "+str(out))
+                if self.nextreturn:
+                    self.debuginput()
+
+
+
                 return out
             if word[0]=='"':
                 return [word[1:-1]]
@@ -382,7 +454,12 @@ class Scanner():
                 return []
             else:
                 raise gack
-        
+
+    def wget(self):
+        self.inputted=True
+        if sys.argv!=[]:
+            return sys.argv[0]
+        return []
     def wunbreak(self):
         self.breakk=False
         return self.parse()
@@ -391,7 +468,7 @@ class Scanner():
         if self.blowthisjoint:
             return []
         for real in s:
-            for l in lines:
+            for l in self.lines:
                 x=0
                 c=l.code
                 a=c.find(real,x)
@@ -434,10 +511,7 @@ class Scanner():
             for fillerer in a:
                 self.matches[fillerer]=filler
             self.cancommand=temp
-            print()
-            print("its now")
-            print(self.matches)
-            print()
+
 
             self.index=c
   
@@ -503,9 +577,12 @@ class Scanner():
         self.sbranch(2)
         a=self.parse()
         b=self.parse()
+        c=[]
         if self.blowthisjoint:
             return 
-        c=[x for x in b if not(x in a)]
+        for x in b:
+            if not(x in a):
+                c.append(x)
         pass
         return c
 
@@ -555,14 +632,14 @@ class Scanner():
         return final 
 
     def win(self):
-        global lines
-        tlines=lines
+        print("gabagool!")
+        tlines=self.lines
         final=[]
         for filler in self.parse():
             filler=Line(str(filler))
-            lines=[filler]
+            self.lines=[filler]
             final+=self.parse()
-        lines=tlines
+        self.lines=tlines
         return final
 
     def wskip(self):
@@ -647,8 +724,7 @@ class Scanner():
             "break":self.wbreak,
             "unbreak":self.wunbreak,
         }
-        print(self.Words.keys())
-        print()
+
 
 #parse |"find str amon", "find str gus"|
 
@@ -690,52 +766,32 @@ def Branchprint(stri):
 
 
 thecode='''
-
-
-finalcell 0 0
-
-new match "enum" find add "final" "cell" match "eX" int word slice enum 10 10 0 match "eY" word slice line enum -1 -1 0 and add add add add "live" "cell " eX " " eY match "y" and and -1 0 1 match "x" and and -1 0 1 add "around" add "cell " add string add eY y add " " string add eX x gabbagool
-
-new match total pack line find add "around" "cell" match Ltotal pack string slice line find add "live" "cell" 10 -1 0 match "l1" "4" match "l0" "and 3 4" match "space" " " match "s0" "add final add cell add space coords" break match "s1" "without 0 0" match enum flatten string line unpack total break match coords string slice enum 12 -1 0 match sum add amount unpack total invert amount without enum string unpack total break parse parse add "s" string amount without parse parse add "l" string amount without break unpack Ltotal coords sum
 '''
 
-
-
-"""
-new match "enum" find add "final" "cell" match "eX" int word slice enum 10 10 0 match "eY" word slice line enum -1 -1 0 and add add add add "live" "cell " eX " " eY match "y" and and -1 0 1 match "x" and and -1 0 1 add "around" add "cell " add string add eY y add " " string add eX x gabbagool
-
-new match "enum" find add "final" "cell" match "eX" int word slice enum 10 10 0 match "eY" word slice line enum -1 -1 0 and add add add add "live" "cell " eX " " eY match "y" and and -1 0 1 match "x" and and -1 0 1 add "around" add "cell " add string add eY y add " " string add eX x gabbagool
-
-break new match total pack line find add "around" "cell" match Ltotal pack string slice line find add "live" "cell" 10 -1 0 match "l1" "4" match "l0" "and 3 4" match "space" " " match "s0" "add final add cell add space coords" match "s1" "without break 0 0" match enum flatten string line unpack total break match coords string slice enum 12 -1 0 match sum add amount unpack total invert amount without enum string unpack total break parse parse add "s" string amount without parse parse add "l" string amount without break unpack Ltotal coords sum
-
-
-new 
-match total pack find add "around" "cell"
-match Ltotal pack find add "live" "cell"
-match "r0" pack and 3 4 match "r1" pack 3
-match "s0" "add final add cell num"
-match "s1" "without 0 0"
-match enum flatten unpack total
-match nums slice enum 12 -1 0
-Ltotal without add "live" add "cell "
-parse parse add "s" string amount
-
-"""
 
 '''thecode=thecode.replace("\n\n","ҹ")
 thecode=thecode.replace("\n"," ")
 thecode=thecode.replace("ҹ","\n")'''
 lines=thecode.split("\n")
-lines=[Line(x) for x in lines]
+#scanner.compile(lines)
 print("matcha")
 
 Branchprint('new match "enum" "ack" and "livecell" match "eX" and 0 1 match "eY" and 0 1 add eX eY')
 a=Line("gaksgdjasd")
 
+print("Input the lines of code, formatted as a list ['like','this'].")
 
-scanner.Go()
-print("gabbagool!")
-print()
-for f in lines:
-    print(f)
+scanner.compile(eval(input()))
+print("Input what you want to be inputted into your program, ['also','like','this'].")
+sys.argv=eval(input())
 
+print("Input run to run the code, and debug to debug the code.")
+a=input()
+if a=="run":
+    scanner.supergo()
+else:
+    print("debug mode entered, here are the keywords. Keep inputting them until the program has halted. \n step : processes the next word. \n iterate : do one iteration of the program. \n line : process the current line. \n display : toggles printing the output of each function when it finishes. \n words : toggles displaying each word the interpreter encounters \n return : run until the current function is finished \n exit : halt the program")
+    scanner.debuginput()
+    scanner.supergo()
+
+['new match r1 "print 1" match r0 and "print 0" "delete line find i" parse add r get','delete line find i']
