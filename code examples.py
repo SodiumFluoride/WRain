@@ -8,7 +8,7 @@ amount and x y
 
 output 1 if x isnt negative
 
-amount and "-" slice str x 0 1 0
+amount without "-" slice str x 0 1 0
 
 
 output a string x multiplied by an integer y. matching the inputs allows this code to work without adjusting the slice parameters for string/number  amount.
