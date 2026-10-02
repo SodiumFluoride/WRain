@@ -2,28 +2,63 @@
 
 '''
 output 1 if x and y equal
+
 amount and x y
 
 
 output 1 if x isnt negative
+
 amount and "-" slice str x 0 1 0
 
 
 output a string x multiplied by an integer y. matching the inputs allows this code to work without adjusting the slice parameters for string/number  amount.
+
 match empty "" match A str_to_mult match N amount_to_mult match r0 "empty" match r1 slice line here add end here 7 -1 0 add A match "N" add N -1 parse parse add "r" string amount without 0 N
 
 
 truth machine. if the input is 0, output 0 and then halt. if the input is 1, keep outputting 1 forever
+
 new match r1 "print 1" match r0 and "print 0" "delete line find i" parse add r get
 delete line find i 
 
 print the numbers 0 through ten
+
 current print 0
 delete word slice line find add "cur" "rent" -1 -1 0
 match "num" word slice line find add "cur" "rent" -1 -1 0 put num add num 1
 match r0 "i" delete parse find add "r" amount without word slice line find add "cur" "rent" 10
 
 '''
+
+'''
+Conways game of life. (you might need to scroll to the right a tad bit)
+
+finalcell 0 0 finalcell 0 1 finalcell 0 2 finalcell 0 3 finalcell 0 4
+
+
+boundleft -5
+boundright 5
+boundup -5
+bounddown 5
+
+new add "bound" "left" match current word slice line find add "bound" "left " -1 -1 0 string add int current add -1 amount without string find add "final" "cell" string current
+
+new match dir and "left " "up " match thestr add "bound" dir add thestr match "current" word slice line find thestr -2 -1 0 add add int current -1 amount without find add "final" "cell"
+new match dir and "right " "down " match thestr add "bound" dr add thestr match "current" word slice line find thestr -2 -1 0 add int current invert add -1 amount without find add "final" "cell"
+
+delete line find add "bound" and and and "left" "right" "up" "down"
+
+new match enum find add "final" "cell" match "eX" word slice enum 10 10 0 match eY slice eX 2 0 2 match "eX" int eX and add add add add "live" "cell " eX " " eY match y and and -1 0 1 match x and and -1 0 1 add add add add "around" "cell " ex " " ey 
+
+delete line find add "final" "cell"
+
+new match total pack find add "around" "cell" match Ltotal pack find add "live" "cell" match "r0" pack and 3 4 match "r1" pack 3 match "s0" "without 0 0" match "text" add "final" "cell " match "s1" "add add final cell " match "s1" "add add text num" match enum flatten unpack total parse add "s" amount without unpack parse add "r" string amount without unpack Ltotal add add add "live" "cell " slice enum 10 -1 0 amount without without enum total total
+
+print match "r1" □ match "r0" ■ match text1 "r" match text2 "final" match text3 "cell " match text4 " " match text5 "x" match text6 "s" match text7 "y" match text8 "" match subound int word slice find add "bound" "up" -2 -1 0 match sdbound int word slice find add "bound" "down" -2 -1 0 match slbound int word slice find add "bound" "left" -2 -1 0 match srbound int word slice find add "bound" "right" -2 -1 0 match "s2" "text8" match "s1" "add parse add text1 string amount without unpack total find add text2 add text3 add x add text4 add y match text5 x+1 parse add text6 string  amount without add x add 1 srbound" match "s0" "add \n match x slbound match text7 add y 1 parse add text6 string add 1  amount without y without y add 1 sdbound" match "total" pack find add "final" "cell" match y add -1 subound match x add -1 slbound parse s1
+
+'''
+
+
 
 '''
 printing (for conways game of life. this would all be one line, i split it up to make it easier to edit/read, same with all the other code snippets that are split like this.)
@@ -83,37 +118,6 @@ match "s0" "add newlineee match text5 slbound match text7 add y 1 parse parse ad
 match "total" pack line find add "final" "cell"
 match y add -1 subound 
 match x add -1 slbound parse s1
-'''
-
-
-
-
-'''
-Conways game of life (you might need to scroll to the right a tad bit)
-
-finalcell 0 0 finalcell 0 1 finalcell 0 2 finalcell 0 3 finalcell 0 4
-
-
-boundleft -30
-boundright 30
-boundup -1
-bounddown 1
-
-new add "bound" "left" match current word slice line find add "bound" "left " -1 -1 0 string add int current add -1 amount without string find add "final" "cell" string current
-
-new match dir and "left " "up " match thestr add "bound" dir add thestr match "current" word slice line find thestr -2 -1 0 add add int current -1 amount without find add "final" "cell"
-new match dir and "right " "down " match thestr add "bound" dr add thestr match "current" word slice line find thestr -2 -1 0 add int current invert add -1 amount without find add "final" "cell"
-
-delete line find add "bound" and and and "left" "right" "up" "down"
-
-new match enum find add "final" "cell" match "eX" word slice enum 10 10 0 match eY slice eX 2 0 2 match "eX" int eX and add add add add "live" "cell " eX " " eY match y and and -1 0 1 match x and and -1 0 1 add add add add "around" "cell " ex " " ey 
-
-delete line find add "final" "cell"
-
-new match total pack find add "around" "cell" match Ltotal pack find add "live" "cell" match "r0" pack and 3 4 match "r1" pack 3 match "s0" "without 0 0" match "text" add "final" "cell " match "s1" "add add final cell " match "s1" "add add text num" match enum flatten unpack total parse add "s" amount without unpack parse add "r" string amount without unpack Ltotal add add add "live" "cell " slice enum 10 -1 0 amount without without enum total total
-
-print match "r1" □ match "r0" ■ match text1 "r" match text2 "final" match text3 "cell " match text4 " " match text5 "x" match text6 "s" match text7 "y" match text8 "" match subound int word slice find add "bound" "up" -2 -1 0 match sdbound int word slice find add "bound" "down" -2 -1 0 match slbound int word slice find add "bound" "left" -2 -1 0 match srbound int word slice find add "bound" "right" -2 -1 0 match "s2" "text8" match "s1" "add parse add text1 string amount without unpack total find add text2 add text3 add x add text4 add y match text5 x+1 parse add text6 string  amount without add x add 1 srbound" match "s0" "add \n match x slbound match text7 add y 1 parse add text6 string add 1  amount without y without y add 1 sdbound" match "total" pack find add "final" "cell" match y add -1 subound match x add -1 slbound parse s1
-
 '''
 
 
