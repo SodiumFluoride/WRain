@@ -3,9 +3,6 @@ import typing
 lines=[]
 
 
-
-
-x=100
 def ack():
     global x
     x-=10
