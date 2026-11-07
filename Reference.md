@@ -130,7 +130,11 @@ a can be a string as well.
 
 a:string castable -> x:any
 
-Executes a as code. parse can only take in collections with one element.
+Executes a as code. Code not used when it returns for example in the case of parse "and a b c", will "roll over" and be accessible by code outside. so in that case that c will be usable by whatever came before parse. So
+```
+and pack parse "and a b c" 
+```
+will return {{a,b},c} (Maybe I should change this but it seems interesting) Because of this, parse can only take in collections with one element. 
 
 ㅤ
 
