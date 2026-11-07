@@ -4,15 +4,14 @@ WRain is a functional, set based esolang thats commutative over line composition
 
 Every line executes at once, commands are queued, and then it executes again. This is called an iteration. It will keep running until every command is deleted.
 
-All data is an unordered collection of elements. They can hold duplicate elements. The element types are numbers, collections, addresses, and strings. addresses are a custom object, and refer to a piece of a line. They can be casted to a string by simply outputting the text contained in that piece.
+All data is an unordered collection of elements. They can hold duplicate elements. The element types are numbers, collections, addresses, and strings. addresses are a custom object, and refer to a piece of a line. The components of an address are a line to reference, a start, and an end. They are a reference to all the code from their start to their end in that line. When casted to a string, they will become a copy of the code they reference.
 
 There are two types of words, commands and functions. commands take in input, and alter the program, or the terminal in the case of print. functions take in input, and ouput something based on that.
 
-The components of an address are a line to reference, a start, and an end. They are a reference to all the code from their start to their end in that line. When casted to a string, they will become a copy of the code they reference.
 
 This is an abelian language, which means execution order between lines does not matter, which is why collections are unordered. The way that is done is by handling everything as if it had been done at the same time. Often this is resolved by only doing one thing at a time. When multiple, potentially conflicting things are done at the same time, it will be referred to as a collision. The sources of collisions are operating on collections with more than one element, or operating on multiple collections at the same time.
 
-There are Two* types of functions, ordinary and special. Ordinary functions take in collections of elements, in this case C1 C2 C3.... and output the collecion of the outputs of every permutation of a single element chosen from the collections, and passed into some underlying function.
+There are Two* types of functions, ordinary and special. Ordinary functions take in collections of elements, say case C1 C2 C3.... and output the collecion of the outputs of every permutation of a single element chosen from the collections, and passed into some underlying function.
 So if x={a,b} and y={c,d}, and the underlying function of word is func(n,m), then word x y = {func(a,c),func(a,d),func(b,c),func(b,d)}. As an example, the underlying function of Add is addition of two elements. so if x={1,2,3} and y={5,6}, Add={1+5,1+6,2+5,2+6,3+5,3+6}={6,7,7,8,8,9}. If the inputs have only one element, there is only one possible permutation, so it would simply equal a set with only one element, the underlying function with those single elements as the input. So Add {4} {5} simply equals {9}. Currently, all commands are ordinary functions.
 
 This is the template I will use to denote functions.
