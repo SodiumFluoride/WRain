@@ -237,6 +237,7 @@ suppose you had x={a,b}. word x x would be equal to {word a a, word a b, word b 
 Suppose you wanted to double every word after the keyword duplicate. 
 put slice find "duplicate" 12 -1 2 word slice find "duplicate" 12 -1 2 is close to the code you would need, but because there could be multiple words you want to duplicate, this code would try to put every word thats after any instance of duplicate after every duplicate. which is obviously not what you want. instead, do 
 match current slice find "duplicate" 12 -1 2 put current word current.
+If b or a are empty, the entire line will abort, as I believe it is mathematically impossible to have natural behavior otherwise.
 
 
 ㅤ
